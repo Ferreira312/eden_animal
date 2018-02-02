@@ -37,6 +37,9 @@ Locales['fr'] = {
   ['youbought'] = 'Vous venez d\'acheter un ',
   ['for'] = ' pour ',
   ['yourpoor'] = 'Vous n\'avez pas assez d\'argent',
+  ['doghouse'] = 'Mettre dans la niche',
+   ['buy_croquette'] = 'Vous venez d\'acheter des corquettes pour ~g~',
+['buy_croquettec'] = 'Acheter des croquettes',
   -- BLIP NAME
   ['pet_shop'] = 'Animalerie',
 }

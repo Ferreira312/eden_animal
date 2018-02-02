@@ -60,3 +60,4 @@ AddEventHandler('eden_animal:takeanimal',function(animalname, price)
 		end
 
 end)
+

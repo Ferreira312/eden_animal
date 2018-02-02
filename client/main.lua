@@ -47,15 +47,16 @@ function OpenAnimal()
             table.insert(elements, {label = _U('givefood'), value = 'graille'})
             table.insert(elements, {label = _U('attachpet'), value = 'attached_animal'})
             if isInVehicle then
-            table.insert(elements, {label = _U('getpetdown'), value = 'vehicules'})
+            table.insert(elements, {label = _U('getpeddown'), value = 'vehicules'})
             else
-            table.insert(elements, {label = _U('getpetinside'), value = 'vehicules'})
+            table.insert(elements, {label = _U('getpedinside'), value = 'vehicules'})
             end
            
                if ordre then
 				table.insert(elements, {label = _U('giveorders'), value = 'ordres'})
 				end
-				
+			table.insert(elements, {label = _U('doghouse'), value = 'niche'})
+
  
         else
             table.insert(elements, {label = _U('callpet'), value = 'come_animal'})
@@ -192,7 +193,8 @@ function OpenAnimal()
                         ESX.showNotification(_U('hestoofar'))
                     end
             end
-            if data.current.value == 'vehicules' then
+			
+			if data.current.value == 'vehicules' then
                 local coords    = GetEntityCoords(GetPlayerPed(-1))
                 local vehicle = GetVehiclePedIsUsing(GetPlayerPed(-1))
                 local coords2 = GetEntityCoords(ped)
@@ -202,39 +204,62 @@ function OpenAnimal()
 							if distance < 8 then
 							attached ()
 							Wait(200)
+							if IsVehicleSeatFree(vehicle, 1) then
+									SetPedIntoVehicle(ped, vehicle, 1)
+									isInVehicle = true
+							elseif IsVehicleSeatFree(vehicle, 2) then
+									isInVehicle = true
+									SetPedIntoVehicle(ped, vehicle, 2)
+							elseif IsVehicleSeatFree(vehicle, 0) then
+									isInVehicle = true
+									SetPedIntoVehicle(ped, vehicle, 0)
+							end 
+								
 							TaskWarpPedIntoVehicle(ped,  vehicle,  -2)
-							isInVehicle = true
 							 menu.close()
-                            else
-                                ESX.showNotification(_U('toofarfromcar'))
-							end
+							 else
+							 ESX.showNotification(_U('toofarfromcar'))
+							 end
 
-                    else
-                        ESX.showNotification(_U('youneedtobeincar'))
+						 else
+							ESX.showNotification(_U('youneedtobeincar'))						
                     end
                 else
                     if not IsPedSittingInAnyVehicle(GetPlayerPed(-1)) then    
 	                    SetEntityCoords(ped,coords.x, coords.y, coords.z,1,0,0,1)
 	                    Wait(100)
 	                    detached()
-	                    isInVehicle = false
-						menu.close()
+	                     isInVehicle = false
+						 						 menu.close()
                     else
-                        ESX.showNotification(_U('yourstillinacar'))
-                    end
+					ESX.showNotification(_U('yourstillinacar'))    
+					end
                 end
 				
-            end        
-        end,
+            end 
+			
+            
+			if data.current.value == 'niche' then   
+			
+				local GroupHandle = GetPlayerGroup(PlayerId())
+				local coords    = GetEntityCoords(GetPlayerPed(-1))
+				SetGroupSeparationRange(GroupHandle, 1.9)
+				SetPedNeverLeavesGroup(ped, false)
+				TaskGoToCoordAnyMeans(ped, coords.x+40, coords.y, coords.z, 5.0, 0, 0, 786603, 0xbf800000)
+				Wait(5000)
+				DeleteEntity(ped)
+				come = 0
+                menu.close()
+				
+            end
+	   end,
         function(data, menu)  
             menu.close()
         end
     )
 end
-   
-   
- 
-   
+
+
 local inanimation = false
 function ordres()
  ESX.TriggerServerCallback('eden_animal:animalname', function(data)
@@ -275,7 +300,8 @@ function ordres()
            
         },
         function(data, menu)
-		
+
+					
 					if data.current.value == 'assis' then							-- [chien ]
 							RequestAnimDict('creatures@rottweiler@amb@world_dog_sitting@base')
 							while not HasAnimDictLoaded('creatures@rottweiler@amb@world_dog_sitting@base') do
@@ -345,6 +371,10 @@ function ordres()
     )
 	end) 
 end          
+
+
+
+
 
 
 function attached ()
@@ -442,7 +472,7 @@ function openchien ()
         end
         TaskPlayAnim( GetPlayerPed(-1), 'rcmnigel1c', 'hailing_whistle_waive_a' ,8.0, -8, -1, 120, 0, false, false, false )
    		SetTimeout(5000, function() -- 5 secondes
-        ped = CreatePed(28, model, LastPosition.x, LastPosition.y, LastPosition.z, 1, 1)                   
+        ped = CreatePed(28, model, LastPosition.x +1, LastPosition.y +1, LastPosition.z -1, 1, 1)                   
         SetPedAsGroupLeader(playerPed, GroupHandle)
         SetPedAsGroupMember(ped, GroupHandle)
         SetPedNeverLeavesGroup(ped, true)               
@@ -452,7 +482,6 @@ function openchien ()
     end)
 end
  
-
  
 Citizen.CreateThread(function()
     while true do      
@@ -520,7 +549,6 @@ function buy_animal()
     local value = value
     local price = price
     local elements = {}
-                
     table.insert(elements, {label = _U('dog') .. '- <span style="color:green;">$50000</span>',             					value = "chien",	price = 50000})		
     table.insert(elements, {label = _U('cat') .. '- <span style="color:green;">$15000</span>',             					value = "chat", price = 15000})
     table.insert(elements, {label = _U('monkey') .. '- <span style="color:green;">$8000</span>',             					value = "singe", price = 8000})
@@ -542,7 +570,9 @@ function buy_animal()
         elements = elements
     },
     function(data, menu)
-        TriggerServerEvent('eden_animal:takeanimal', data.current.value, data.current.price)
-        menu.close()
+       
+            TriggerServerEvent('eden_animal:takeanimal', data.current.value, data.current.price)
+            menu.close()
+
     end)
 end

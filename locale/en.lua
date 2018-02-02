@@ -37,6 +37,10 @@ Locales['en'] = {
   ['youbought'] = 'You just bought a ',
   ['for'] = ' for ',
   ['yourpoor'] = 'You dont have that money !',
+    ['doghouse'] = 'Tell your ped to go in doghouse',
+   ['buy_croquette'] = 'you have buy dog food ~g~',
+['buy_croquettec'] = 'Buy dog food',
+
   -- Blip name
   ['pet_shop'] = 'Pet shop',
 }
