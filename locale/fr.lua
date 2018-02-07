@@ -31,6 +31,7 @@ Locales['fr'] = {
   ['poodle'] = 'Caniche ',
   ['pug'] = 'Carlin ',
   ['retriever'] = 'Retriever ',
+  ['chop'] = 'Pitbull ',
   ['asatian'] = 'Berger allemand ',
   ['westie'] = 'Westie ',
   ['pet_shop2'] = 'Animalerie',
