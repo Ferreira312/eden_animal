@@ -128,7 +128,7 @@ function OpenAnimal()
 	                    come = 1
 					        ordre = true
 		            openchien()
-		    elseif (data == "chop") then
+		    elseif (data == "rottweiler") then
                         model = 351016938
                         come = 1
 						ordre = true
@@ -288,7 +288,7 @@ function ordres()
 			if (data == "retriever") then
 					table.insert(elements, {label = _U('sitdown'), value = 'assis3'})	
 			end
-			if (data == "chop") then
+			if (data == "rottweiler") then
 					table.insert(elements, {label = _U('sitdown'), value = 'assis4'})	
 			end	
 				else   
@@ -364,12 +364,12 @@ function ordres()
 									inanimation = true
 									menu.close()   
 					end			
-					if data.current.value == 'assis4' then						-- [pitbull ]
-									RequestAnimDict('creatures@chop@amb@world_dog_sitting@idle_a')
-									while not HasAnimDictLoaded('creatures@chop@amb@world_dog_sitting@idle_a') do
+					if data.current.value == 'assis4' then						-- [rottweiler ]
+									RequestAnimDict('creatures@rottweiler@amb@world_dog_sitting@idle_a')
+									while not HasAnimDictLoaded('creatures@rottweiler@amb@world_dog_sitting@idle_a') do
 										Wait(0)
 									end
-									TaskPlayAnim( ped, 'creatures@chop@amb@world_dog_sitting@idle_a', 'idle_c' ,8.0, -8, -1, 1, 0, false, false, false )        
+									TaskPlayAnim( ped, 'creatures@rottweiler@amb@world_dog_sitting@idle_a', 'idle_c' ,8.0, -8, -1, 1, 0, false, false, false )        
 									inanimation = true
 									menu.close()   
 					end						
@@ -465,7 +465,7 @@ AddEventHandler('playerSpawned', function()
         while ( not HasModelLoaded( 882848737 ) ) do
             Citizen.Wait( 1 )
         end
-	-- pitbull
+	-- rottweiler
             RequestModel( 351016938 )
         while ( not HasModelLoaded( 351016938 ) ) do
             Citizen.Wait( 1 )
@@ -581,7 +581,7 @@ function buy_animal()
     table.insert(elements, {label = _U('poodle') .. '- <span style="color:green;">$50000</span>',             					value = "caniche", price = 50000})
     table.insert(elements, {label = _U('pug') .. '- <span style="color:green;">$5000</span>',             					value = "carlin", price = 5000})
     table.insert(elements, {label = _U('retriever') .. '- <span style="color:green;">$10000</span>',             			        value = "retriever", price = 10000})
-    table.insert(elements, {label = _U('chop') .. '- <span style="color:green;">$12000</span>',                                            value = "chop", price = 12000})
+    table.insert(elements, {label = _U('rottweiler') .. '- <span style="color:green;">$12000</span>',                                            value = "rottweiler", price = 12000})
     table.insert(elements, {label = _U('asatian') .. '- <span style="color:green;">$55000</span>',             					value = "berger", price = 55000})
     table.insert(elements, {label = _U('westie') .. '- <span style="color:green;">$50000</span>',             					value = "westie", price = 50000})
     
