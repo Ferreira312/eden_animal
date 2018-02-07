@@ -31,6 +31,7 @@ Locales['en'] = {
   ['poodle'] = 'Poodle ',
   ['pug'] = 'Pug ',
   ['retriever'] = 'Retriever ',
+  ['chop'] = 'Pitbull ',
   ['asatian'] = 'Alsatian dog ',
   ['westie'] = 'Westie ',
   ['pet_shop2'] = 'Pet shop',
