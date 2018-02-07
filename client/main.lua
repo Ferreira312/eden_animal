@@ -126,6 +126,11 @@ function OpenAnimal()
                     elseif (data == "retriever") then
 	                    model = 882848737
 	                    come = 1
+					        ordre = true
+		            openchien()
+		    elseif (data == "chop") then
+                        model = 351016938
+                        come = 1
 						ordre = true
 	                    openchien()
                     elseif (data == "berger") then
@@ -283,6 +288,9 @@ function ordres()
 			if (data == "retriever") then
 					table.insert(elements, {label = _U('sitdown'), value = 'assis3'})	
 			end
+			if (data == "chop") then
+					table.insert(elements, {label = _U('sitdown'), value = 'assis4'})	
+			end	
 				else   
 					table.insert(elements, {label = _U('getup'), value = 'debout'})
         end
@@ -353,6 +361,15 @@ function ordres()
 										Wait(0)
 									end
 									TaskPlayAnim( ped, 'creatures@retriever@amb@world_dog_sitting@idle_a', 'idle_c' ,8.0, -8, -1, 1, 0, false, false, false )        
+									inanimation = true
+									menu.close()   
+					end			
+					if data.current.value == 'assis4' then						-- [pitbull ]
+									RequestAnimDict('creatures@chop@amb@world_dog_sitting@idle_a')
+									while not HasAnimDictLoaded('creatures@chop@amb@world_dog_sitting@idle_a') do
+										Wait(0)
+									end
+									TaskPlayAnim( ped, 'creatures@chop@amb@world_dog_sitting@idle_a', 'idle_c' ,8.0, -8, -1, 1, 0, false, false, false )        
 									inanimation = true
 									menu.close()   
 					end						
@@ -448,6 +465,11 @@ AddEventHandler('playerSpawned', function()
         while ( not HasModelLoaded( 882848737 ) ) do
             Citizen.Wait( 1 )
         end
+	-- pitbull
+            RequestModel( 351016938 )
+        while ( not HasModelLoaded( 351016938 ) ) do
+            Citizen.Wait( 1 )
+        end
         -- berger
             RequestModel( 1126154828 )
         while ( not HasModelLoaded( 1126154828 ) ) do
@@ -503,7 +525,7 @@ end)
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
-		if IsControlPressed(0, Keys['F7']) and not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'eden_animal') and (GetGameTimer() - GUI.Time) > 150 then
+		if IsControlPressed(0, Keys['F9']) and not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'eden_animal') and (GetGameTimer() - GUI.Time) > 150 then
             OpenAnimal()
             GUI.Time = GetGameTimer()
         end
@@ -558,7 +580,8 @@ function buy_animal()
     table.insert(elements, {label = _U('pig') .. '- <span style="color:green;">$10000</span>',             					value = "cochon", price = 10000})
     table.insert(elements, {label = _U('poodle') .. '- <span style="color:green;">$50000</span>',             					value = "caniche", price = 50000})
     table.insert(elements, {label = _U('pug') .. '- <span style="color:green;">$5000</span>',             					value = "carlin", price = 5000})
-    table.insert(elements, {label = _U('retriever') .. '- <span style="color:green;">$10000</span>',             					value = "retriever", price = 10000})
+    table.insert(elements, {label = _U('retriever') .. '- <span style="color:green;">$10000</span>',             			        value = "retriever", price = 10000})
+    table.insert(elements, {label = _U('chop') .. '- <span style="color:green;">$12000</span>',                                            value = "chop", price = 12000})
     table.insert(elements, {label = _U('asatian') .. '- <span style="color:green;">$55000</span>',             					value = "berger", price = 55000})
     table.insert(elements, {label = _U('westie') .. '- <span style="color:green;">$50000</span>',             					value = "westie", price = 50000})
     
